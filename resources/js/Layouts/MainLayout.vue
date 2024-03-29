@@ -28,7 +28,7 @@ let showCreatePost = ref(false);
                 <Link href="/">
                     <img
                         class="w-[105px] ml-6 cursor-pointer"
-                        src="/instagraham_logo.png"
+                        src="/instagrahams_logo.png"
                     />
                 </Link>
                 <div class="flex items-center w-[50%]">
@@ -69,11 +69,11 @@ let showCreatePost = ref(false);
             <Link href="/">
                 <img
                     class="xl:hidden block w-[25px] mt-10 ml-[25px] mb-10 cursor-pointer"
-                    src="/insta_logo_small.png"
+                    src="/instagrahams_logo_small.png"
                 />
                 <img
                     class="xl:block hidden w-[120px] mt-10 ml-6 mb-10 cursor-pointer"
-                    src="/instagraham_logo.png"
+                    src="/instagrahams_logo.png"
                 />
             </Link>
             <div class="px-3">
@@ -113,73 +113,113 @@ let showCreatePost = ref(false);
                 id="SuggestionsSection"
                 class="lg:w-4/12 lg:block hidden text-black mt-10"
             >
-                <Link
-                    href="/"
-                    class="flex items-center justify-between max-w-[300px]"
-                >
-                    <div class="flex items-center">
-                        <img
-                            class="rounded-full z-10 w-[58px] h-[58px]"
-                            src="https://picsum.photos/id/50/300/320"
-                        />
-                        <div class="pl-4">
-                            <div class="text-black font-extrabold">
+                <!-- <Carousel
+                    v-model="currentSlide"
+                    class="max-w-[700px] mx-auto"
+                    :items-to-show="wWidth >= 768 ? 9 : 5"
+                    :items-to-scroll="4"
+                    :wrap-around="true"
+                    :transition="500"
+                    :snapAlign="start"
+                    ><Slide v-for="slide in 10" :key="slide" class="h-60">
+                        <Link
+                            href="/"
+                            class="relative mx-auto text-center mt-4 px-2 cursor-pointer"
+                            ><div
+                                class="absolute z-[-1] -top-[5px] left-[4px] rounded-full rotate-45 w-[64px] h-[64px] contrast-[1.3] bg-gradient-to-t from-yellow-300 to-purple-500 via-red-500"
+                            >
+                                <div
+                                    class="rounded-full ml-[3px] mt-[3px] w-[58px] h-[58px] bg-white"
+                                />
+                            </div>
+                            <img
+                                class="rounded-full w-[56px] -mt-[1px]"
+                                src="https://picsum.photos/id/50/300/320"
+                            />
+                            <div
+                                class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden"
+                            >
                                 Bran Dale Nacario
                             </div>
-                            <div class="text-gray-500 text-extrabold text-sm">
-                                Developer
+                        </Link>
+                    </Slide>
+                    <template #addons>
+                        <Navigation />
+                    </template>
+                </Carousel> -->
+                <div>
+                    <Link
+                        href="/"
+                        class="flex items-center justify-between max-w-[300px]"
+                    >
+                        <div class="flex items-center">
+                            <img
+                                class="rounded-full z-10 w-[58px] h-[58px]"
+                                src="https://picsum.photos/id/50/300/320"
+                            />
+                            <div class="pl-4">
+                                <div class="text-black font-extrabold">
+                                    nacariodale
+                                </div>
+                                <div
+                                    class="text-gray-500 text-extrabold text-sm"
+                                >
+                                    Bran Dale Nacario
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <button
-                        class="text-blue-500 hover:text-gray-900 text-xs font-extrabold"
+                        <button
+                            class="text-blue-500 hover:text-gray-900 text-xs font-extrabold"
+                        >
+                            Switch
+                        </button>
+                    </Link>
+                    <div
+                        class="max-w-[300px] flex items-center justify-between py-3"
                     >
-                        Switch
-                    </button>
-                </Link>
-                <div
-                    class="max-w-[300px] flex items-center justify-between py-3"
-                >
-                    <div class="text-gray-500 font-extrabold">
-                        Suggestions for you
+                        <div class="text-gray-500 font-extrabold">
+                            Suggestions for you
+                        </div>
+                        <button
+                            class="text-blue-500 hover:text-gray-900 text-xs font-extrabold"
+                        >
+                            See All
+                        </button>
                     </div>
-                    <button
-                        class="text-blue-500 hover:text-gray-900 text-xs font-extrabold"
+                    <Link
+                        href="/"
+                        class="flex items-center justify-between max-w-[300px] pb-2"
                     >
-                        See All
-                    </button>
-                </div>
-                <Link
-                    href="/"
-                    class="flex items-center justify-between max-w-[300px] pb-2"
-                >
-                    <div class="flex items-center">
-                        <img
-                            class="rounded-full z-10 w-[37px] h-[37px]"
-                            src="https://picsum.photos/id/50/100/320"
-                        />
-                        <div class="pl-4">
-                            <div class="text-black font-extrabold">
-                                Bran Dale Nacario
-                            </div>
-                            <div class="text-gray-500 text-extrabold text-sm">
-                                Developer
+                        <div class="flex items-center">
+                            <img
+                                class="rounded-full z-10 w-[37px] h-[37px]"
+                                src="https://picsum.photos/id/50/100/320"
+                            />
+                            <div class="pl-4">
+                                <div class="text-black font-extrabold">
+                                    nacariobran
+                                </div>
+                                <div
+                                    class="text-gray-500 text-extrabold text-sm"
+                                >
+                                    Bran Dale Nacario
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <button
-                        class="text-blue-500 hover:text-gray-900 text-xs font-extrabold"
-                    >
-                        Follow
-                    </button>
-                </Link>
-                <div class="max-w-[300px] mt-5">
-                    <div class="text-sm text-gray-400">
-                        About Help Press API Jobs Privacy Terms Location
-                        Language
-                    </div>
-                    <div class="text-left text-gray-400 mt-4">
-                        © 2024 INSTRAGAHAM FROM DALEDEV
+                        <button
+                            class="text-blue-500 hover:text-gray-900 text-xs font-extrabold"
+                        >
+                            Follow
+                        </button>
+                    </Link>
+                    <div class="max-w-[300px] mt-5">
+                        <div class="text-sm text-gray-400">
+                            About Help Press API Jobs Privacy Terms Location
+                            Language
+                        </div>
+                        <div class="text-left text-gray-400 mt-4">
+                            © 2024 INSTRAGAHAM FROM DALEDEV
+                        </div>
                     </div>
                 </div>
             </div>

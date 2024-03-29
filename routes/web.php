@@ -5,9 +5,13 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+Route::name('/')->get('/', function () {
     return Inertia::render('Home');
 });
+Route::get('/user', function () {
+    return Inertia::render('User');
+});
+
 
 
 Route::middleware('auth')->group(function () {
