@@ -7,7 +7,7 @@ import ArrowLeft from "vue-material-design-icons/ArrowLeft.vue";
 import MapMarkerOutline from "vue-material-design-icons/MapMarkerOutline.vue";
 import ChevronDown from "vue-material-design-icons/ChevronDown.vue";
 
-// const user = usePage().props.auth.user
+const user = usePage().props.auth.user;
 
 const emit = defineEmits(["close"]);
 
@@ -94,6 +94,7 @@ const createPost = (e) => {
                 />
                 <div class="text-lg font-extrabold">New Reel</div>
                 <button
+                    @click="createPost()"
                     class="text-lg text-blue-500 hover:text-gray-900 font extrabold cursor-pointer"
                 >
                     Share

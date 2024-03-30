@@ -23,6 +23,30 @@ onMounted(() => {
         wWidth.value = window.innerWidth;
     });
 });
+
+const addComment = (object) => {
+    router.post(
+        "/comments",
+        {
+            post_id: object.post.id,
+            user_id: object.user.id,
+            comment: object.commentOut,
+        },
+        {
+            onFinish: () => {
+                updatedPost(object);
+            },
+        }
+    );
+};
+const updatedPost = (object) => {
+    for (let i = 0; i < posts.value.length; i++) {
+        const post = posts.value.data[i];
+        if (post.id === object.post.id) {
+            currentPost.value = post;
+        }
+    }
+};
 </script>
 
 <template>
@@ -36,10 +60,9 @@ onMounted(() => {
                 :items-to-scroll="4"
                 :wrap-around="true"
                 :transition="500"
-                :snapAlign="start"
-                ><Slide v-for="slide in 10" :key="slide" class="h-35">
+                ><Slide v-for="slide in allUsers" :key="slide" class="h-35">
                     <Link
-                        href="/"
+                        :href="route('users.show', { id: slide.id })"
                         class="relative mx-auto text-center mt-4 px-2 cursor-pointer"
                         ><div
                             class="absolute z-[-1] -top-[4px] left-[3px] rounded-full rotate-45 w-[64px] h-[64px] contrast-[1.3] bg-gradient-to-t from-yellow-300 to-purple-500 via-red-500"
@@ -50,12 +73,12 @@ onMounted(() => {
                         </div>
                         <img
                             class="rounded-full w-[56px] -mt-[1px]"
-                            src="https://picsum.photos/id/50/300/320"
+                            :src="slide.default_pic"
                         />
                         <div
                             class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden"
                         >
-                            Bran Dale Nacario
+                            {{ slide.name }}
                         </div>
                     </Link>
                 </Slide>
@@ -63,16 +86,24 @@ onMounted(() => {
                     <Navigation />
                 </template>
             </Carousel>
-            <div id="Posts" class="px-4 max-w-[600px] mx-auto mt-10">
+            <div
+                id="Posts"
+                class="px-4 max-w-[600px] mx-auto mt-10"
+                v-for="post in posts.data"
+                :key="post"
+            >
                 <div class="flex items-center justify-between py-2">
                     <div class="flex items-center">
-                        <Link href="/" class="flex items-center">
+                        <Link
+                            :href="route('users.show', { id: post.user.id })"
+                            class="flex items-center"
+                        >
                             <img
                                 class="rounded-full w-[38px] h-[38px]"
-                                src="https://picsum.photos/id/50/300/320"
+                                :src="post.user.default_pic"
                             />
                             <div class="ml-4 font-extrabold text-[15px]">
-                                Bran Dale Nacario
+                                {{ post.user.name }}
                             </div>
                         </Link>
                         <div
@@ -81,7 +112,7 @@ onMounted(() => {
                             <span class="-mt-5 ml-2 mr-[5px] text-[35px]"
                                 >.
                             </span>
-                            <div>Jan 12, 2024</div>
+                            <div>{{ post.created_at }}</div>
                         </div>
                     </div>
                     <DotsHorizontal class="cursor-pointer" :size="27" />
@@ -89,24 +120,28 @@ onMounted(() => {
                 <div
                     class="bg-black rounded-lg w-full min-h-[400px] flex items-center"
                 >
-                    <img
-                        class="mx-auto w-full"
-                        src="https://picsum.photos/id/50/300/320"
-                    />
+                    <img class="mx-auto w-full" :src="post.file" />
                 </div>
-                <LikesSection />
-                <div class="text-black font-extrabold py-1">8 likes</div>
+                <LikesSection
+                    :post="post"
+                    @like="($event) => updateLike($event)"
+                />
+                <div class="text-black font-extrabold py-1">
+                    {{ post.likes.length }} likes
+                </div>
                 <div class="py-1">
-                    <span class="text-black font-extrabold"
-                        >Bran Dale Nacario</span
+                    <span class="text-black font-extrabold">
+                        {{ post.user.name }}</span
                     >
-                    Love this pic!!
+                    {{ post.text }}
                 </div>
                 <button
-                    @click="($event) => (openOverlay = true)"
+                    @click="
+                        ($event) => ((currentPost = post), (openOverlay = true))
+                    "
                     class="text-gray-500 font-extrabold py-1"
                 >
-                    View All 4 Comments
+                    View All {{ post.comments.length }} Comments
                 </button>
             </div>
             <div class="pb-20"></div>
@@ -116,6 +151,8 @@ onMounted(() => {
         v-if="openOverlay"
         :post="currentPost"
         @closeOverlay="($event) => (openOverlay = false)"
+        @updateLike="($event) => updateLike($event)"
+        @addComment="($event) => addComment($event)"
     />
 </template>
 
