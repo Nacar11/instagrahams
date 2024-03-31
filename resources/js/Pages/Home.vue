@@ -1,19 +1,22 @@
 <script setup>
 import { ref, onMounted, toRefs } from "vue";
-import { Head, Link, router } from "@inertiajs/vue3";
+import { Head, Link, router, usePage } from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
 
 import LikesSection from "@/Components/LikesSection.vue";
 import ShowPostOverlay from "@/Components/ShowPostOverlay.vue";
+import ShowPostOptionsOverlay from "@/Components/ShowPostOptionsOverlay.vue";
 
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Navigation } from "vue3-carousel";
 import DotsHorizontal from "vue-material-design-icons/DotsHorizontal.vue";
 
+const user = usePage().props.auth.user;
 let wWidth = ref(window.innerWidth);
 let currentSlide = ref(0);
 let currentPost = ref(null);
 let openOverlay = ref(false);
+let deleteType = ref(null);
 
 const props = defineProps({ posts: Object, allUsers: Object });
 const { posts, allUsers } = toRefs(props);
@@ -174,7 +177,24 @@ const updatedPost = (object) => {
                             <div>{{ post.created_at }}</div>
                         </div>
                     </div>
-                    <DotsHorizontal class="cursor-pointer" :size="27" />
+                    <button
+                        @close="
+                            ($event) => {
+                                deleteType = null;
+                                id = null;
+                            }
+                        "
+                        v-if="user.id === post.user.id"
+                        @click="
+                            ($event) => {
+                                currentPost = post;
+                                deleteType = 'Post';
+                                id = post.id;
+                            }
+                        "
+                    >
+                        <DotsHorizontal class="cursor-pointer" :size="27" />
+                    </button>
                 </div>
                 <div
                     class="bg-black rounded-lg w-full min-h-[400px] flex items-center"
@@ -219,6 +239,28 @@ const updatedPost = (object) => {
             ($event) => {
                 console.log($event);
                 deleteFunc($event);
+            }
+        "
+    />
+    <ShowPostOptionsOverlay
+        v-if="deleteType"
+        :deleteType="deleteType"
+        :id="id"
+        @deleteSelected="
+            ($event) => {
+                deleteFunc({
+                    deleteType: $event.deleteType,
+                    id: $event.id,
+                    post: currentPost,
+                });
+
+                deleteType = null;
+            }
+        "
+        @close="
+            ($event) => {
+                deleteType = null;
+                // id = null;
             }
         "
     />
