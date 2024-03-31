@@ -140,7 +140,7 @@ const updatedPost = (object) => {
                         <div
                             class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden"
                         >
-                            {{ slide.name }}
+                            {{ slide.first_name }} {{ slide.last_name }}
                         </div>
                     </Link>
                 </Slide>
@@ -165,7 +165,8 @@ const updatedPost = (object) => {
                                 :src="post.user.file"
                             />
                             <div class="ml-4 font-extrabold text-[15px]">
-                                {{ post.user.name }}
+                                {{ post.user.first_name }}
+                                {{ post.user.last_name }}
                             </div>
                         </Link>
                         <div

@@ -22,7 +22,9 @@ class AllPostsCollection extends ResourceCollection
                         'text' => $comment->text,
                         'user' => [
                             'id' => $comment->user->id,
-                            'name' => $comment->user->name,
+                            'first_name' => $post->user->first_name,
+                            'last_name' => $post->user->last_name,
+                            'username' => $post->user->username,
                             'file' => $comment->user->file
                         ],
                     ];
@@ -36,7 +38,9 @@ class AllPostsCollection extends ResourceCollection
                 }),
                 'user' => [
                     'id' => $post->user->id,
-                    'name' => $post->user->name,
+                    'first_name' => $post->user->first_name,
+                    'last_name' => $post->user->last_name,
+                    'username' => $post->user->username,
                     'file' => $post->user->file
 
                 ],

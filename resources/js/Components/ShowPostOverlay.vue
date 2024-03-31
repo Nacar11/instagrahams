@@ -48,7 +48,8 @@ const textareaInput = (e) => {};
                                 :src="post.user.file"
                             />
                             <div class="ml-4 font-extrabold text-[15px]">
-                                {{ post.user.name }}
+                                {{ post.user.first_name }}
+                                {{ post.user.last_name }}
                             </div>
                             <div
                                 class="flex items-center text-[15px] text-gray-500"

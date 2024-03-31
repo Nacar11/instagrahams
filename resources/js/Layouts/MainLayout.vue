@@ -60,7 +60,8 @@ let showCreatePost = ref(false);
                 <ChevronLeft :size="30" class="cursor-pointer" />
             </Link>
             <div class="font-extrabold text-lg">
-                {{ $page.props.auth.user.name }}
+                {{ $page.props.auth.user.first_name }}
+                {{ $page.props.auth.user.last_name }}
             </div>
             <AccountPlusOutline :size="30" class="cursor-pointer px-4" />
         </div>
@@ -90,7 +91,6 @@ let showCreatePost = ref(false);
                     @click="
                         (event) => {
                             showCreatePost = true;
-                            console.log($page.props.auth.user.name);
                         }
                     "
                     iconString="Create"
@@ -157,13 +157,14 @@ let showCreatePost = ref(false);
                                     "
                                 >
                                     <div class="text-black font-extrabold">
-                                        {{ $page.props.auth.user.name }}
+                                        {{ $page.props.auth.user.first_name }}
+                                        {{ $page.props.auth.user.last_name }}
                                     </div>
                                 </a>
                                 <div
                                     class="text-gray-500 text-extrabold text-sm"
                                 >
-                                    {{ $page.props.auth.user.name }}
+                                    {{ $page.props.auth.user.username }}
                                 </div>
                             </div>
                         </div>
@@ -200,7 +201,8 @@ let showCreatePost = ref(false);
                                 />
                                 <div class="pl-4">
                                     <div class="text-black font-extrabold">
-                                        {{ randUser.name }}
+                                        {{ randUser.first_name }}
+                                        {{ randUser.last_name }}
                                     </div>
                                     <div
                                         class="text-gray-500 text-extrabold text-sm"
@@ -217,12 +219,58 @@ let showCreatePost = ref(false);
                         </Link>
                     </div>
                     <div class="max-w-[300px] mt-5">
-                        <div class="text-sm text-gray-400">
-                            About Help Press API Jobs Privacy Terms Location
+                        <span
+                            class="text-sm cursor-pointer hover:underline text-gray-400"
+                        >
+                            About
+                        </span>
+                        <span
+                            class="text-sm cursor-pointer hover:underline text-gray-400"
+                        >
+                            Help
+                        </span>
+                        <span
+                            class="text-sm cursor-pointer hover:underline text-gray-400"
+                        >
+                            Press
+                        </span>
+                        <span
+                            class="text-sm cursor-pointer hover:underline text-gray-400"
+                        >
+                            API
+                        </span>
+                        <span
+                            class="text-sm cursor-pointer hover:underline text-gray-400"
+                        >
+                            Jobs
+                        </span>
+                        <span
+                            class="text-sm cursor-pointer hover:underline text-gray-400"
+                        >
+                            Privacy
+                        </span>
+                        <span
+                            class="text-sm cursor-pointer hover:underline text-gray-400"
+                        >
+                            Terms
+                        </span>
+                        <span
+                            class="text-sm cursor-pointer hover:underline text-gray-400"
+                        >
+                            Location
+                        </span>
+                        <span
+                            class="text-sm cursor-pointer hover:underline text-gray-400"
+                        >
                             Language
-                        </div>
-                        <div class="text-left text-gray-400 mt-4">
-                            © 2024 INSTRAGAHAM FROM DALEDEV
+                        </span>
+                        <div class="text-sm cursor-pointer text-gray-400 mt-4">
+                            © 2024 INSTRAGAHAM FROM
+                            <span
+                                class="text-sm cursor-pointer hover:underline text-gray-400"
+                            >
+                                DALEDEV</span
+                            >
                         </div>
                     </div>
                 </div>

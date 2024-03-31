@@ -4,7 +4,6 @@ import { Head, Link, router } from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ContentOverlay from "@/Components/ContentOverlay.vue";
 import ShowPostOverlay from "@/Components/ShowPostOverlay.vue";
-import DotsHorizontal from "vue-material-design-icons/DotsHorizontal.vue";
 
 import Cog from "vue-material-design-icons/Cog.vue";
 import Grid from "vue-material-design-icons/Grid.vue";
@@ -19,7 +18,7 @@ const props = defineProps({ postsByUser: Object, user: Object });
 const { postsByUser, user } = toRefs(props);
 
 const setDefaultPicture = (e) => {
-    console.log(e);
+    console.log(user.value);
     console.log(e.target.files[0]);
     form.file = e.target.files[0];
     router.post("/users", form, {
@@ -132,7 +131,8 @@ const updatedPost = (object) => {
                     <div class="ml-6 w-full">
                         <div class="flex items-center md:mb-8 mb-5">
                             <div class="md:mr-6 mr-3 rounded-lg text-[22px]">
-                                {{ user.name }}
+                                {{ user.first_name }}
+                                {{ user.last_name }}
                             </div>
                             <button
                                 class="md:block hidden md:mr-6 mx-3 p-1 px-4 rounded-lg text-[16px] font-extrabold bg-gray-100 hover:bg-gray-200"

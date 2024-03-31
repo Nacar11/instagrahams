@@ -7,7 +7,9 @@ import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 
 const form = useForm({
-    name: "",
+    first_name: "",
+    last_name: "",
+    username: "",
     email: "",
     password: "",
     password_confirmation: "",
@@ -33,19 +35,52 @@ const submit = () => {
             Sign up to see photos and videos from your friends.
         </div>
         <form @submit.prevent="submit">
-            <div>
+            <div class="flex items-center">
+                <div class="mr-1">
+                    <TextInput
+                        id="first_name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.first_name"
+                        required
+                        autofocus
+                        autocomplete="name"
+                        placeholder="First Name"
+                    />
+
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.first_name"
+                    />
+                </div>
+                <div class="ml-1">
+                    <TextInput
+                        id="last_name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.last_name"
+                        required
+                        autofocus
+                        autocomplete="name"
+                        placeholder="Last Name"
+                    />
+
+                    <InputError class="mt-2" :message="form.errors.last_name" />
+                </div>
+            </div>
+            <div class="mt-4">
                 <TextInput
-                    id="name"
+                    id="username"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.name"
+                    v-model="form.username"
                     required
                     autofocus
                     autocomplete="name"
-                    placeholder="Name"
+                    placeholder="Username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.username" />
             </div>
 
             <div class="mt-4">

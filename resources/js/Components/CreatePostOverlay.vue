@@ -148,7 +148,8 @@ const createPost = (e) => {
                                 :src="user.file"
                             />
                             <div class="ml-4 font-extrabold text-[15px]">
-                                {{ user.name }}
+                                {{ user.first_name }}
+                                {{ user.last_name }}
                             </div>
                         </div>
                     </div>
