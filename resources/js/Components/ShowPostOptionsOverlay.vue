@@ -1,10 +1,10 @@
 <script setup>
 import { toRefs } from "vue";
 
-const props = defineProps({ deleteType: String, id: Number });
+const props = defineProps(["deleteType", "id"]);
 const { deleteType, id } = toRefs(props);
 
-defineEmits(["close", "dateSelected"]);
+defineEmits(["close", "deleteSelected"]);
 
 const textAreaInput = (e) => {
     textArea.value.style.height = "auto";
@@ -21,14 +21,22 @@ const textAreaInput = (e) => {
             class="max-w-sm w-full mx-auto mt-10 bg-white rounded-xl text-center"
         >
             <button
-                @click="($event) => $emit('deleteSelected', { deleteType, id })"
+                @click="
+                    ($event) => {
+                        $emit('deleteSelected', { deleteType, id });
+                    }
+                "
                 class="font-extrabold w-full text-red-600 p-3 text-lg border-b border-b-gray-300 cursor-pointer"
             >
                 Delete {{ deleteType }}
             </button>
             <div
                 class="p-3 text-lg cursor-pointer"
-                @click="($event) => $emit('close')"
+                @click="
+                    ($event) => {
+                        $emit('close');
+                    }
+                "
             >
                 Cancel
             </div>

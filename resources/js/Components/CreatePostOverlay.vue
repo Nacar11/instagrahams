@@ -32,7 +32,6 @@ const closeOverlay = () => {
 };
 
 const getUploadedImage = (e) => {
-    console.log(e);
     form.file = e.target.files[0];
     let extension = form.file.name.substring(
         form.file.name.lastIndexOf(".") + 1
@@ -146,10 +145,10 @@ const createPost = (e) => {
                         <div class="flex items-center">
                             <img
                                 class="rounded-full w-[38px] h-[38px]"
-                                src="https://picsum.photos/id/50/300/320"
+                                :src="user.file"
                             />
                             <div class="ml-4 font-extrabold text-[15px]">
-                                NAME HERE
+                                {{ user.name }}
                             </div>
                         </div>
                     </div>

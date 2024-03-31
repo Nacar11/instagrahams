@@ -15,7 +15,7 @@ class FileService
         if(!empty($model->file)){
             $currentFile = public_path() . $model->file;
 
-            if(file_exists($currentFile) && currentFile != public_path() .'/user_placeholder.png'){
+            if(file_exists($currentFile) && $currentFile != public_path() .'/user_placeholder.png'){
                 unlink($currentFile);
             }
         }

@@ -59,7 +59,9 @@ let showCreatePost = ref(false);
             <Link href="/" class="px-4">
                 <ChevronLeft :size="30" class="cursor-pointer" />
             </Link>
-            <div class="font-extrabold text-lg">Bran Dale Nacario</div>
+            <div class="font-extrabold text-lg">
+                {{ $page.props.auth.user.name }}
+            </div>
             <AccountPlusOutline :size="30" class="cursor-pointer px-4" />
         </div>
         <div
@@ -85,13 +87,28 @@ let showCreatePost = ref(false);
                 <MenuItem iconString="Messages" class="mb-4"></MenuItem>
                 <MenuItem iconString="Notifications" class="mb-4"></MenuItem>
                 <MenuItem
-                    @click="(event) => (showCreatePost = true)"
+                    @click="
+                        (event) => {
+                            showCreatePost = true;
+                            console.log($page.props.auth.user.name);
+                        }
+                    "
                     iconString="Create"
                     class="mb-4"
                 ></MenuItem>
-                <MenuItem iconString="Profile" class="mb-4"></MenuItem>
+                <Link
+                    :href="
+                        route('users.show', { id: $page.props.auth.user.id })
+                    "
+                    ><MenuItem iconString="Profile" class="mb-4"></MenuItem>
+                </Link>
             </div>
-            <Link href="/" class="absolute bottom-0 px-3 w-full">
+            <Link
+                :href="route('logout')"
+                as="button"
+                method="POST"
+                class="absolute bottom-0 px-3 w-full"
+            >
                 <MenuItem iconString="Log out" class="mb-4"></MenuItem>
             </Link>
         </div>
@@ -113,58 +130,40 @@ let showCreatePost = ref(false);
                 id="SuggestionsSection"
                 class="lg:w-4/12 lg:block hidden text-black mt-10"
             >
-                <!-- <Carousel
-                    v-model="currentSlide"
-                    class="max-w-[700px] mx-auto"
-                    :items-to-show="wWidth >= 768 ? 9 : 5"
-                    :items-to-scroll="4"
-                    :wrap-around="true"
-                    :transition="500"
-                    :snapAlign="start"
-                    ><Slide v-for="slide in 10" :key="slide" class="h-60">
-                        <Link
-                            href="/"
-                            class="relative mx-auto text-center mt-4 px-2 cursor-pointer"
-                            ><div
-                                class="absolute z-[-1] -top-[5px] left-[4px] rounded-full rotate-45 w-[64px] h-[64px] contrast-[1.3] bg-gradient-to-t from-yellow-300 to-purple-500 via-red-500"
-                            >
-                                <div
-                                    class="rounded-full ml-[3px] mt-[3px] w-[58px] h-[58px] bg-white"
-                                />
-                            </div>
-                            <img
-                                class="rounded-full w-[56px] -mt-[1px]"
-                                src="https://picsum.photos/id/50/300/320"
-                            />
-                            <div
-                                class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden"
-                            >
-                                Bran Dale Nacario
-                            </div>
-                        </Link>
-                    </Slide>
-                    <template #addons>
-                        <Navigation />
-                    </template>
-                </Carousel> -->
                 <div>
-                    <Link
-                        href="/"
+                    <div
                         class="flex items-center justify-between max-w-[300px]"
                     >
                         <div class="flex items-center">
-                            <img
-                                class="rounded-full z-10 w-[58px] h-[58px]"
-                                src="https://picsum.photos/id/50/300/320"
-                            />
+                            <a
+                                :href="
+                                    route('users.show', {
+                                        id: $page.props.auth.user.id,
+                                    })
+                                "
+                            >
+                                <img
+                                    class="rounded-full z-10 w-[58px] h-[58px]"
+                                    :src="$page.props.auth.user.file"
+                                />
+                            </a>
+
                             <div class="pl-4">
-                                <div class="text-black font-extrabold">
-                                    nacariodale
-                                </div>
+                                <a
+                                    :href="
+                                        route('users.show', {
+                                            id: $page.props.auth.user.id,
+                                        })
+                                    "
+                                >
+                                    <div class="text-black font-extrabold">
+                                        {{ $page.props.auth.user.name }}
+                                    </div>
+                                </a>
                                 <div
                                     class="text-gray-500 text-extrabold text-sm"
                                 >
-                                    Bran Dale Nacario
+                                    {{ $page.props.auth.user.name }}
                                 </div>
                             </div>
                         </div>
@@ -173,7 +172,7 @@ let showCreatePost = ref(false);
                         >
                             Switch
                         </button>
-                    </Link>
+                    </div>
                     <div
                         class="max-w-[300px] flex items-center justify-between py-3"
                     >
@@ -186,32 +185,37 @@ let showCreatePost = ref(false);
                             See All
                         </button>
                     </div>
-                    <Link
-                        href="/"
-                        class="flex items-center justify-between max-w-[300px] pb-2"
+                    <div
+                        v-for="randUser in $page.props.randomUsers"
+                        :key="randUser"
                     >
-                        <div class="flex items-center">
-                            <img
-                                class="rounded-full z-10 w-[37px] h-[37px]"
-                                src="https://picsum.photos/id/50/100/320"
-                            />
-                            <div class="pl-4">
-                                <div class="text-black font-extrabold">
-                                    nacariobran
-                                </div>
-                                <div
-                                    class="text-gray-500 text-extrabold text-sm"
-                                >
-                                    Bran Dale Nacario
+                        <Link
+                            :href="route('users.show', { id: randUser.id })"
+                            class="flex items-center justify-between max-w-[300px] pb-2"
+                        >
+                            <div class="flex items-center">
+                                <img
+                                    class="rounded-full z-10 w-[37px] h-[37px]"
+                                    :src="randUser.file"
+                                />
+                                <div class="pl-4">
+                                    <div class="text-black font-extrabold">
+                                        {{ randUser.name }}
+                                    </div>
+                                    <div
+                                        class="text-gray-500 text-extrabold text-sm"
+                                    >
+                                        Suggested for you
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <button
-                            class="text-blue-500 hover:text-gray-900 text-xs font-extrabold"
-                        >
-                            Follow
-                        </button>
-                    </Link>
+                            <button
+                                class="text-blue-500 hover:text-gray-900 text-xs font-extrabold"
+                            >
+                                Follow
+                            </button>
+                        </Link>
+                    </div>
                     <div class="max-w-[300px] mt-5">
                         <div class="text-sm text-gray-400">
                             About Help Press API Jobs Privacy Terms Location
@@ -242,7 +246,11 @@ let showCreatePost = ref(false);
                 class="cursor-pointer"
             />
             <Plus
-                @click="(event) => (showCreatePost = true)"
+                @click="
+                    (event) => {
+                        showCreatePost = true;
+                    }
+                "
                 fillColor="#000000"
                 :size="33"
                 class="cursor-pointer"
@@ -252,16 +260,20 @@ let showCreatePost = ref(false);
                 :size="33"
                 class="cursor-pointer"
             />
-            <Link href="/">
+            <Link :href="route('users.show', { id: $page.props.auth.user.id })">
                 <img
                     class="rounded-full w-[30px] cursor-pointer"
-                    src="https://picsum.photos/id/200/300/320"
+                    :src="$page.props.auth.user.file"
                 />
             </Link>
         </div>
     </div>
     <CreatePostOverlay
         v-if="showCreatePost"
-        @close="($event) => (showCreatePost = false)"
+        @close="
+            ($event) => {
+                showCreatePost = false;
+            }
+        "
     />
 </template>

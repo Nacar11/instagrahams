@@ -23,7 +23,7 @@ class AllPostsCollection extends ResourceCollection
                         'user' => [
                             'id' => $comment->user->id,
                             'name' => $comment->user->name,
-                            'default_pic' => $comment->user->default_pic
+                            'file' => $comment->user->file
                         ],
                     ];
                 }),
@@ -37,7 +37,7 @@ class AllPostsCollection extends ResourceCollection
                 'user' => [
                     'id' => $post->user->id,
                     'name' => $post->user->name,
-                    'default_pic' => $post->user->default_pic
+                    'file' => $post->user->file
 
                 ],
             ];

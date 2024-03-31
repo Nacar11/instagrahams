@@ -10,17 +10,6 @@ use App\Http\Requests\PostRequest;
 class PostController extends Controller
 {
    
-    public function index()
-    {
-        //
-    }
-
-    
-    public function create()
-    {
-        //
-    }
-
    
     public function store(PostRequest $request)
     {
@@ -34,14 +23,6 @@ class PostController extends Controller
 
         return redirect('/');
     }
-
-
-  
-    public function edit(Post $post)
-    {
-        //
-    }
-
 
     public function destroy($id)
     {

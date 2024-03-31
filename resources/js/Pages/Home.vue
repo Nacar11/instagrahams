@@ -32,6 +32,7 @@ const addComment = (object) => {
             user_id: object.user.id,
             comment: object.commentOut,
         },
+
         {
             onFinish: () => {
                 updatedPost(object);
@@ -39,9 +40,67 @@ const addComment = (object) => {
         }
     );
 };
+
+const deleteFunc = (object) => {
+    let url = "";
+    console.log(object);
+    if (object.deleteType === "Post") {
+        url = "/posts/" + object.post.id;
+    } else {
+        url = "/comments/" + object.id;
+    }
+
+    router.delete(url, {
+        onFinish: () => updatedPost(object),
+    });
+
+    if (object.deleteType === "Post") {
+        openOverlay.value = false;
+    }
+};
+
+const updateLike = (object) => {
+    let deleteLike = false;
+    let id = null;
+    console.log(object.post.likes.length);
+    for (let i = 0; i < object.post.likes.length; i++) {
+        console.log(object.post.likes);
+        const like = object.post.likes[i];
+
+        if (
+            like.user_id === object.user.id &&
+            like.post_id === object.post.id
+        ) {
+            deleteLike = true;
+            id = like.id;
+        }
+    }
+    if (deleteLike) {
+        router.delete("/likes/" + id, {
+            onFinish: () => {
+                updatedPost(object);
+            },
+        });
+    } else {
+        router.post(
+            "/likes",
+            {
+                post_id: object.post.id,
+            },
+            {
+                onFinish: () => {
+                    updatedPost(object);
+                },
+            }
+        );
+    }
+};
+
 const updatedPost = (object) => {
-    for (let i = 0; i < posts.value.length; i++) {
+    for (let i = 0; i < posts.value.data.length; i++) {
         const post = posts.value.data[i];
+        console.log(post.id);
+
         if (post.id === object.post.id) {
             currentPost.value = post;
         }
@@ -73,7 +132,7 @@ const updatedPost = (object) => {
                         </div>
                         <img
                             class="rounded-full w-[56px] -mt-[1px]"
-                            :src="slide.default_pic"
+                            :src="slide.file"
                         />
                         <div
                             class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden"
@@ -100,7 +159,7 @@ const updatedPost = (object) => {
                         >
                             <img
                                 class="rounded-full w-[38px] h-[38px]"
-                                :src="post.user.default_pic"
+                                :src="post.user.file"
                             />
                             <div class="ml-4 font-extrabold text-[15px]">
                                 {{ post.user.name }}
@@ -137,7 +196,10 @@ const updatedPost = (object) => {
                 </div>
                 <button
                     @click="
-                        ($event) => ((currentPost = post), (openOverlay = true))
+                        ($event) => {
+                            currentPost = post;
+                            openOverlay = true;
+                        }
                     "
                     class="text-gray-500 font-extrabold py-1"
                 >
@@ -153,6 +215,12 @@ const updatedPost = (object) => {
         @closeOverlay="($event) => (openOverlay = false)"
         @updateLike="($event) => updateLike($event)"
         @addComment="($event) => addComment($event)"
+        @deleteSelected="
+            ($event) => {
+                console.log($event);
+                deleteFunc($event);
+            }
+        "
     />
 </template>
 

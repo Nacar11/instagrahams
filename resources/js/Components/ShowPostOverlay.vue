@@ -19,9 +19,7 @@ const { post } = toRefs(props);
 
 defineEmits(["closeOverlay", "addComment", "updateLike", "deleteSelected"]);
 
-const textareaInput = (e) => {
-    console.log(commentOut.value);
-};
+const textareaInput = (e) => {};
 </script>
 
 <template>
@@ -47,7 +45,7 @@ const textareaInput = (e) => {
                         <div class="flex items-center">
                             <img
                                 class="rounded-full w-[38px] h-[38px]"
-                                :src="post.user.default_pic"
+                                :src="post.user.file"
                             />
                             <div class="ml-4 font-extrabold text-[15px]">
                                 {{ post.user.name }}
@@ -62,10 +60,18 @@ const textareaInput = (e) => {
                             </div>
                         </div>
                         <button
+                            @close="
+                                ($event) => {
+                                    deleteType = null;
+                                    id = null;
+                                }
+                            "
                             v-if="user.id === post.user.id"
                             @click="
-                                (($event) => (deleteType = 'Post'),
-                                (id = post.id))
+                                ($event) => {
+                                    deleteType = 'Post';
+                                    id = post.id;
+                                }
                             "
                         >
                             <DotsHorizontal class="cursor-pointer" :size="27" />
@@ -76,7 +82,7 @@ const textareaInput = (e) => {
                             <div class="flex items-center relative">
                                 <img
                                     class="absolute -top-1 rounded-full w-[38px] h-[38px]"
-                                    :src="post.user.default_pic"
+                                    :src="post.user.file"
                                 />
                                 <div class="ml-14">
                                     <span
@@ -100,7 +106,7 @@ const textareaInput = (e) => {
                                 <div class="flex items-center">
                                     <img
                                         class="rounded-full w-[38px] h-[38px]"
-                                        :src="comment.user.default_pic"
+                                        :src="comment.user.file"
                                     />
                                     <div
                                         class="ml-4 font-extrabold text-[15px]"
@@ -117,8 +123,10 @@ const textareaInput = (e) => {
                                     v-if="user.id === comment.user.id"
                                     class="cursor-pointer"
                                     @click="
-                                        (($event) => (deleteType = 'Comment'),
-                                        (id = comment.id))
+                                        ($event) => {
+                                            deleteType = 'Comment';
+                                            id = comment.id;
+                                        }
                                     "
                                     :size="27"
                                 />
@@ -176,14 +184,20 @@ const textareaInput = (e) => {
         :deleteType="deleteType"
         :id="id"
         @deleteSelected="
-            $emit('deleteSelected', {
-                deleteType: $event.deleteType,
-                id: $event.id,
-                post: post,
-            });
-            deleteType = null;
-            id = null;
+            {
+                $emit('deleteSelected', {
+                    deleteType: $event.deleteType,
+                    id: $event.id,
+                    post: post,
+                });
+                deleteType = null;
+            }
         "
-        @close="(($event) => (deleteType = null), (id = null))"
+        @close="
+            ($event) => {
+                deleteType = null;
+                // id = null;
+            }
+        "
     />
 </template>
