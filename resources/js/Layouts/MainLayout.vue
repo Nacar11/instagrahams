@@ -98,7 +98,9 @@ let showCreatePost = ref(false);
                 ></MenuItem>
                 <Link
                     :href="
-                        route('users.show', { id: $page.props.auth.user.id })
+                        route('users.show', {
+                            id: $page.props.auth.user.username,
+                        })
                     "
                     ><MenuItem iconString="Profile" class="mb-4"></MenuItem>
                 </Link>
@@ -138,7 +140,7 @@ let showCreatePost = ref(false);
                             <a
                                 :href="
                                     route('users.show', {
-                                        id: $page.props.auth.user.id,
+                                        id: $page.props.auth.user.username,
                                     })
                                 "
                             >
@@ -152,7 +154,7 @@ let showCreatePost = ref(false);
                                 <a
                                     :href="
                                         route('users.show', {
-                                            id: $page.props.auth.user.id,
+                                            id: $page.props.auth.user.username,
                                         })
                                     "
                                 >
@@ -191,7 +193,9 @@ let showCreatePost = ref(false);
                         :key="randUser"
                     >
                         <Link
-                            :href="route('users.show', { id: randUser.id })"
+                            :href="
+                                route('users.show', { id: randUser.username })
+                            "
                             class="flex items-center justify-between max-w-[300px] pb-2"
                         >
                             <div class="flex items-center">
@@ -308,7 +312,11 @@ let showCreatePost = ref(false);
                 :size="33"
                 class="cursor-pointer"
             />
-            <Link :href="route('users.show', { id: $page.props.auth.user.id })">
+            <Link
+                :href="
+                    route('users.show', { id: $page.props.auth.user.username })
+                "
+            >
                 <img
                     class="rounded-full w-[30px] cursor-pointer"
                     :src="$page.props.auth.user.file"

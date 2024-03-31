@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-    Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/{username}', [UserController::class, 'show'])->name('users.show');
     Route::post('/users', [UserController::class, 'update'])->name('users.update');
 
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
