@@ -11,12 +11,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::name('/')->get('/', function () {
-    return Inertia::render('Home');
-});
-Route::get('/user', function () {
-    return Inertia::render('User');
-});
+
 
 
 
@@ -24,7 +19,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-    Route::get('/{username}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/users/{username}', [UserController::class, 'show'])->name('users.show');
     Route::post('/users', [UserController::class, 'update'])->name('users.update');
 
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');

@@ -268,7 +268,7 @@ let showCreatePost = ref(false);
                         >
                             Language
                         </span>
-                        <div class="text-sm cursor-pointer text-gray-400 mt-4">
+                        <div class="text-sm text-gray-400 mt-4">
                             © 2024 INSTRAGAHAM FROM
                             <span
                                 class="text-sm cursor-pointer hover:underline text-gray-400"

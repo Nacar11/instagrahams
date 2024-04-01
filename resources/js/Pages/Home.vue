@@ -124,7 +124,7 @@ const updatedPost = (object) => {
                 :transition="500"
                 ><Slide v-for="slide in allUsers" :key="slide" class="h-35">
                     <Link
-                        :href="route('users.show', { id: slide.id })"
+                        :href="route('users.show', { id: slide.username })"
                         class="relative mx-auto text-center mt-4 px-2 cursor-pointer"
                         ><div
                             class="absolute z-[-1] -top-[4px] left-[3px] rounded-full rotate-45 w-[64px] h-[64px] contrast-[1.3] bg-gradient-to-t from-yellow-300 to-purple-500 via-red-500"

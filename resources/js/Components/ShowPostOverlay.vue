@@ -89,7 +89,8 @@ const textareaInput = (e) => {};
                                     <span
                                         class="font-extrabold text-[15px] mr-2"
                                     >
-                                        {{ post.user.name }}
+                                        {{ post.user.first_name }}
+                                        {{ post.user.last_name }}
                                     </span>
                                     <span class="text-[15px] text-gray-900">
                                         {{ post.text }}
@@ -112,7 +113,8 @@ const textareaInput = (e) => {};
                                     <div
                                         class="ml-4 font-extrabold text-[15px]"
                                     >
-                                        {{ comment.user.name }}
+                                        {{ comment.user.first_name }}
+                                        {{ comment.user.last_name }}
                                         <span
                                             class="font-light text-gray-700 text-sm"
                                         >
