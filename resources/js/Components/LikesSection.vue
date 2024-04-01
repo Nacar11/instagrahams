@@ -4,7 +4,7 @@ import { usePage } from "@inertiajs/vue3";
 
 import Heart from "vue-material-design-icons/Heart.vue";
 import HeartOutline from "vue-material-design-icons/HeartOutline.vue";
-import CommentOutLine from "vue-material-design-icons/CommentOutLine.vue";
+import CommentOutline from "vue-material-design-icons/CommentOutline.vue";
 import SendOutline from "vue-material-design-icons/SendOutline.vue";
 import BookmarkOutline from "vue-material-design-icons/BookmarkOutline.vue";
 
@@ -43,7 +43,7 @@ const isHeartActiveComputed = computed(() => {
                 <HeartOutline v-else class="pl-3 cursor-pointer" :size="30" />
             </button>
             <button class="-mt-[14px] mr-2">
-                <CommentOutLine class="pl-3 cursor-pointer" :size="30" />
+                <CommentOutline class="pl-3 cursor-pointer" :size="30" />
             </button>
             <button class="-mt-[14px] mr-2">
                 <SendOutline class="pl-3 cursor-pointer" :size="30" />

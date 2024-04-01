@@ -3,7 +3,7 @@ import { ref, toRefs } from "vue";
 import { router, usePage } from "@inertiajs/vue3";
 
 import Heart from "vue-material-design-icons/HeartOutline.vue";
-import Comment from "vue-material-design-icons/CommentOutLine.vue";
+import Comment from "vue-material-design-icons/CommentOutline.vue";
 
 defineEmits(["selectedPost"]);
 const props = defineProps(["postByUser"]);
